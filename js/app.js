@@ -7,21 +7,22 @@ mostrarProductos(stockProductos)
 
 //logica Ecommerce
 function mostrarProductos(array){
-    //contenedorProductos.innerHTML= ""
+    contenedorProductos.innerHTML= ""
     
    array.forEach(item => {
 
        let div = document.createElement('div')
        div.classList.add('producto')
         div.innerHTML += `
-                        <div class="card" style="width: 18rem;">
-                            <img src="${item.imagen}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">${item.nombre}</h5>
-                                <p class="card-text">${item.descripcion}</p>
-                                <p class="card-text">$${item.precio}</p>
+                            <div>
+                                <img src=${item.imagen} class="imagenProducto">
                             </div>
-                        </div>
+                            <div>
+                                <span>${item.nombre}</span>
+                                <p>${item.descripcion}</p>
+                                <p> $${item.precio}</p>
+                                <button id="agregar${item.id}">Agregar al Carrito</button>
+                            </div>
         `
         contenedorProductos.appendChild(div)
 
@@ -40,4 +41,6 @@ function agregarAlCarrito(id) {
     productoAgregar.cantidad = 1
         
     carritoDeCompras.push(productoAgregar)
+
+    console.log(carritoDeCompras)
 }
