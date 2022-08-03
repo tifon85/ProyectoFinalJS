@@ -83,6 +83,18 @@ function mostrarCarrito(productoAgregar) {
         
 
     })
-
-
 }
+
+function recuperar() {
+    let recuperarLS = JSON.parse(localStorage.getItem('carrito'))
+    
+    if(recuperarLS){
+        recuperarLS.forEach(el=> {
+            mostrarCarrito(el)
+            carritoDeCompras.push(el)
+        })
+    }   
+}
+   
+   
+recuperar()
