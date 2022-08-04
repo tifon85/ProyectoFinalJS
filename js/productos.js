@@ -13,7 +13,7 @@ let stockProductos = [
         nombre: 'Buzo 2',
         categoria: 'Buzos',
         descripcion: 'Este es un gran produto para vos',
-        stock: 5,
+        stock: 0,
         imagen: 'https://www.ansilta.com/img/articulos/2021/01/buzo_primo_3_13_imagen9.jpg',
         precio: 600
       },

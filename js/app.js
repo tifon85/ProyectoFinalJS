@@ -14,17 +14,31 @@ function mostrarProductos(array){
 
        let div = document.createElement('div')
        div.classList.add('producto')
-        div.innerHTML += `
-                            <div>
-                                <img src=${item.imagen} class="imagenProducto">
-                            </div>
-                            <div>
-                                <span>${item.nombre}</span>
-                                <p>${item.descripcion}</p>
-                                <p> $${item.precio}</p>
-                                <button id="agregar${item.id}">Agregar al Carrito</button>
-                            </div>
-        `
+        div.innerHTML += 
+                        item.stock===0 ?
+                        (`
+                                            <div>
+                                                <img src=${item.imagen} class="imagenProducto">
+                                            </div>
+                                            <div>
+                                                <span>${item.nombre}</span>
+                                                <p>${item.descripcion}</p>
+                                                <p> $${item.precio}</p>
+                                                <button id="agregar${item.id}" disabled="true">SIN STOCK</button>
+                                            </div>
+                        `)
+                        :
+                        (`
+                                            <div>
+                                                <img src=${item.imagen} class="imagenProducto">
+                                            </div>
+                                            <div>
+                                                <span>${item.nombre}</span>
+                                                <p>${item.descripcion}</p>
+                                                <p> $${item.precio}</p>
+                                                <button id="agregar${item.id}">Agregar al Carrito</button>
+                                            </div>
+                        `)
         contenedorProductos.appendChild(div)
 
         let btnAgregar = document.getElementById(`agregar${item.id}`)
@@ -47,7 +61,7 @@ function agregarAlCarrito(id) {
     
         productoAgregar.cantidad = 1
         
-        carritoDeCompras.push(productoAgregar)
+        carritoDeCompras=[...carritoDeCompras,productoAgregar]
 
         mostrarCarrito(productoAgregar) 
     }
@@ -80,8 +94,6 @@ function mostrarCarrito(productoAgregar) {
             document.getElementById(`und${productoAgregar.id}`).innerHTML =` <p id=und${productoAgregar.id}>Und:${productoAgregar.cantidad}</p>`
             localStorage.setItem('carrito', JSON.stringify(carritoDeCompras))
             }
-        
-
     })
 }
 
@@ -91,7 +103,7 @@ function recuperar() {
     if(recuperarLS){
         recuperarLS.forEach(el=> {
             mostrarCarrito(el)
-            carritoDeCompras.push(el)
+            carritoDeCompras=[...carritoDeCompras,el]
         })
     }   
 }
