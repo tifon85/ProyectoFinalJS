@@ -45,6 +45,13 @@ function mostrarProductos(array){
 
         btnAgregar.addEventListener('click',()=>{
            agregarAlCarrito(item.id)
+           Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Item agregado al carrito',
+                showConfirmButton: false,
+                timer: 1500
+          })  
         })
 
    })
