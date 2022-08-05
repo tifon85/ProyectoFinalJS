@@ -50,8 +50,8 @@ function mostrarProductos(array){
                 icon: 'success',
                 title: 'Item agregado al carrito',
                 showConfirmButton: false,
-                timer: 1500
-          })  
+                timer: 3000,
+            })
         })
 
    })
