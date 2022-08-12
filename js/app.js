@@ -4,13 +4,15 @@ let carritoDeCompras = []
 const contenedorProductos = document.getElementById('contenedor-productos');
 const contenedorCarrito = document.getElementById('carrito-contenedor');
 
-mostrarProductos(stockProductos)
-
 //logica Ecommerce
-function mostrarProductos(array){
-    contenedorProductos.innerHTML= ""
+function mostrarProductos(){
+
+    //contenedorProductos.innerHTML= ""
+    fetch('../productos.json')
+    .then((resp) => resp.json())
+    .then((data) => {
     
-   array.forEach(item => {
+        data.forEach(item => {
 
        let div = document.createElement('div')
        div.classList.add('producto')
@@ -53,9 +55,11 @@ function mostrarProductos(array){
                 timer: 3000,
             })
         })
-
+    })
    })
 }
+
+mostrarProductos()
 
 function agregarAlCarrito(id) {
 
