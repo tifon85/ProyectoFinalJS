@@ -1,1 +1,0 @@
-Elegí usar Sweet Alert porque me pareció lo mas conveniente para mostrar un mensaje de que se agregó el item al carrito.
