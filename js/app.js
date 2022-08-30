@@ -1,18 +1,23 @@
 
 let carritoDeCompras = []
+let stockProductos = []
 
 const contenedorProductos = document.getElementById('contenedor-productos');
 const contenedorCarrito = document.getElementById('carrito-contenedor');
 
+const contadorCarrito = document.getElementById('contadorCarrito');
+const precioTotal = document.getElementById('precioTotal');
+
 //logica Ecommerce
 function mostrarProductos(){
 
-    //contenedorProductos.innerHTML= ""
+    contenedorProductos.innerHTML= ""
     fetch('../productos.json')
     .then((resp) => resp.json())
     .then((data) => {
-    
-        data.forEach(item => {
+
+        stockProductos = data;
+        stockProductos.forEach(item => {
 
        let div = document.createElement('div')
        div.classList.add('producto')
@@ -67,12 +72,15 @@ function agregarAlCarrito(id) {
     if(yaEsta){
         yaEsta.cantidad = yaEsta.cantidad + 1
         document.getElementById(`und${yaEsta.id}`).innerHTML =` <p id=und${yaEsta.id}>Und:${yaEsta.cantidad}</p>`
+        actualizarCarrito()
     }else{
        let productoAgregar = stockProductos.find(elemento => elemento.id == id)
     
         productoAgregar.cantidad = 1
         
         carritoDeCompras=[...carritoDeCompras,productoAgregar]
+
+        actualizarCarrito()
 
         mostrarCarrito(productoAgregar) 
     }
@@ -99,13 +107,20 @@ function mostrarCarrito(productoAgregar) {
         if(productoAgregar.cantidad == 1){
            btnEliminar.parentElement.remove()
             carritoDeCompras = carritoDeCompras.filter(item=> item.id != productoAgregar.id)
+            actualizarCarrito()
             localStorage.setItem('carrito', JSON.stringify(carritoDeCompras))
         }else{
             productoAgregar.cantidad = productoAgregar.cantidad - 1
             document.getElementById(`und${productoAgregar.id}`).innerHTML =` <p id=und${productoAgregar.id}>Und:${productoAgregar.cantidad}</p>`
+            actualizarCarrito()
             localStorage.setItem('carrito', JSON.stringify(carritoDeCompras))
             }
     })
+}
+
+function  actualizarCarrito (){
+    contadorCarrito.innerText = carritoDeCompras.reduce((acc,el)=> acc + el.cantidad, 0)
+    precioTotal.innerText = carritoDeCompras.reduce((acc,el)=> acc + (el.precio * el.cantidad), 0)
 }
 
 function recuperar() {
@@ -115,6 +130,7 @@ function recuperar() {
         recuperarLS.forEach(el=> {
             mostrarCarrito(el)
             carritoDeCompras=[...carritoDeCompras,el]
+            actualizarCarrito()
         })
     }   
 }
