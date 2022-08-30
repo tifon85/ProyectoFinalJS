@@ -114,7 +114,14 @@ function mostrarCarrito(productoAgregar) {
             document.getElementById(`und${productoAgregar.id}`).innerHTML =` <p id=und${productoAgregar.id}>Und:${productoAgregar.cantidad}</p>`
             actualizarCarrito()
             localStorage.setItem('carrito', JSON.stringify(carritoDeCompras))
-            }
+        }
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Item quitado del carrito',
+            showConfirmButton: false,
+            timer: 3000,
+        })
     })
 }
 
